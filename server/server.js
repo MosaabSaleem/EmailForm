@@ -2,13 +2,9 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const path = require('path');
 
-app.use(express.static(path.join(__dirname, '../emailform/build')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../emailform/build', 'index.html'));
-});
-
 const app = express();
+
+app.use(express.static(path.join(__dirname, '../emailform/build')));
 app.use(express.json());
 
 app.post('/send-email', async (req, res) => {
@@ -35,6 +31,10 @@ app.post('/send-email', async (req, res) => {
     res.status(500).send('Failed to send email');
   }
 });
+
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../emailform/build', 'index.html'));
+// });
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
